@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react';
 
-import { Container } from "./styles"
+import { Container } from './styles';
 
 export default function Footer() {
   return (
@@ -18,5 +18,5 @@ export default function Footer() {
         />
       </svg>
     </Container>
-  )
+  );
 }
