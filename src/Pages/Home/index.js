@@ -57,9 +57,9 @@ export default function Home() {
     }
   }, []);
 
-  async function handleNextPage(a) {
+  async function handleNextPage() {
     setCount(count + 10);
-    const response = await HerosService.getHeroes(a);
+    const response = await HerosService.getHeroes(count);
     const nextPage = response.data.results;
     setHeroes(nextPage);
   }
@@ -94,10 +94,10 @@ export default function Home() {
         {
           count === 0
             ? null
-            : <button type="button" onClick={handlePrevPage}>Prev</button>
+            : <button type="button"  onClick={handlePrevPage}>Prev</button>
         }
 
-        <button type="button" onClick={handleNextPage}>Next</button>
+        <button type="button" onClick={handleNextPage} >Next</button>
 
         <Pagination qtdPage={qtdPage} />
 
