@@ -9,7 +9,7 @@ function HeroDetails() {
   const [comicsHero, setComicsHero] = useState([])
   const [eventsHero, setEventsHero] = useState([])
   const [seriesHero, setSeriesHero] = useState([])
-  const [storiesHero, setStoriesHero] = useState([])
+  // const [storiesHero, setStoriesHero] = useState([])
   const params = useParams();
 
   useEffect(() => {
@@ -39,11 +39,11 @@ function HeroDetails() {
     })
   }, [])
 
-  useEffect(() => {
-    HerosService.getStoriesHero(params.id).then(response => {
-      setStoriesHero(response.data.results)
-    })
-  }, [])
+  // useEffect(() => {
+  //   HerosService.getStoriesHero(params.id).then(response => {
+  //     setStoriesHero(response.data.results)
+  //   })
+  // }, [])
 
 
   return (
