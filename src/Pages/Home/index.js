@@ -77,7 +77,7 @@ async function handlePrevPage() {
    setHeroes(nextPage)
  }
 
-console.log(heroes)
+
   return (
     <>
       <Container>

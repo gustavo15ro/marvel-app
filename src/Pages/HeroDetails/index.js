@@ -45,7 +45,7 @@ function HeroDetails() {
     })
   }, [])
 
-console.log(storiesHero)
+
   return (
     <>
       <BgFull>
