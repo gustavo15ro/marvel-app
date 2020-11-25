@@ -1,107 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import HerosService from '../../Services/herosService';
-import CardHero from '../../Components/CardHero';
+import Search from '../../Components/Search';
+import CardHeroList from '../../Components/CardHeroList';
 import Pagination from '../../Components/Pagination';
-import { Container } from './styles';
-
-// function Paginations() {
-//   const qtdHeros = 1000
-//   const pages =  Math.round(qtdHeros / 5)
-//   let contPage = 0
-//   let arrayPage = []
-
-//   while (contPage < pages){
-//     const splitedValue =  {
-//       numberPage: contPage,
-//       qtdHero: (10 * contPage),
-//     }
-//     arrayPage.push(splitedValue)
-//     ++contPage
-//   }
-
-//   return (
-//     <>
-//       {
-//         arrayPage.map((page, i) => {
-//           console.log(page)
-//           return (
-//             <button key={i} type="button">{page.numberPage}</button>
-//           )
-//         })
-//       }
-//     </>
-//   )
-
-// }
+import { Container, ListHeader } from './styles';
 
 export default function Home() {
   const [heroes, setHeroes] = useState([]);
-  const [count, setCount] = useState(0);
-  const [pages, setPages] = useState([]);
-  const [qtdPage, setQtdPage] = useState([]);
+  const [totalHeros, setTotalHeros] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [currentPage, setCurrentPage] = useState(0);
+
 
   useEffect(() => {
-    HerosService.getHeroes().then((response) => {
+    HerosService.getHeroes(currentPage).then((response) => {
+      setLimit(response.data.limit);
+      setTotalHeros(response.data.total);
       setHeroes(response.data.results);
-      setPages(response.data);
     });
-    const numerosPaginas = Math.round(pages.total / pages.limit);
-    let contPage = 0;
-    const arrayPage = [];
-
-    while (contPage < numerosPaginas) {
-      arrayPage.push({ numberPage: contPage, qtdHero: (10 * contPage) });
-
-      setQtdPage(arrayPage);
-      ++contPage;
-    }
-  }, []);
-
-  async function handleNextPage() {
-    setCount(count + 10);
-    const response = await HerosService.getHeroes(count);
-    const nextPage = response.data.results;
-    setHeroes(nextPage);
-  }
-
-  async function handlePrevPage() {
-    setCount(count - 10);
-    const response = await HerosService.getHeroes(count);
-    const nextPage = response.data.results;
-    setHeroes(nextPage);
-  }
+  }, [currentPage, limit, totalHeros])
 
   return (
     <>
+      <Search/>
       <Container>
+        <ListHeader>
+          <strong>Avatar</strong>
+          <strong>Personagem</strong>
+          <strong>Comics</strong>
+          <strong>Events</strong>
+          <strong>Series</strong>
+          <strong>Stories</strong>
+        </ListHeader>
         {
           heroes.length
             ? heroes.map((hero) => (
-              <CardHero
+              <CardHeroList
                 islink
                 key={hero.id}
                 id={hero.id}
                 name={hero.name}
                 description={hero.description}
                 thumbnail={hero.thumbnail}
+                comics={hero.comics.items}
+                events={hero.events.items}
+                series={hero.series.items}
+                stories={hero.stories.items}
               />
             ))
             : <p> Procurando Herois</p>
         }
       </Container>
 
-      <section>
-        {
-          count === 0
-            ? null
-            : <button type="button"  onClick={handlePrevPage}>Prev</button>
-        }
+        <Pagination
+          totalHeros={totalHeros}
+          limit={limit}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
 
-        <button type="button" onClick={handleNextPage} >Next</button>
+        />
 
-        <Pagination qtdPage={qtdPage} />
-
-      </section>
     </>
   );
 }

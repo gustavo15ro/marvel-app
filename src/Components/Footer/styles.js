@@ -1,10 +1,11 @@
 import styled from "styled-components"
 
-export const Container = styled.header`
+export const Container = styled.footer`
+  height: 66px;
+  width: 100%;
+  padding: 0 15px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #000;
-  padding: 30px 0;
-  border-top: 3px solid #ec1d24;
+  justify-content: center;
+  background-color: #FFF;
 `

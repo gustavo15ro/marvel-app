@@ -12,7 +12,7 @@ html, body, #root{
   min-height: 100%;
 }
 body{
-  background: #FFF;
+  background: #E5E5E5;
   -webkit-font-smoothing: antialiased !important;
 }
 body, input, button{
@@ -20,19 +20,24 @@ body, input, button{
   font-size: 14px;
   font-family: 'Roboto Condensed', sans-serif;
 }
+
 h1, h2, h3, h4, h5, h6, p, span{
   font-family: 'Roboto Condensed', sans-serif;
 }
+main{
+  width: 1200px;
+  margin: 0 auto;
+}
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #f2f2f2;
+  color: #757575;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #f2f2f2;
+  color: #757575;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #f2f2f2;
+  color: #757575;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #f2f2f2;
+  color: #757575;
 }
 `
