@@ -19,33 +19,40 @@ export const Container = styled.nav`
 
     li{
       margin: 4px 7.5px;
-      button{
-      background: #EFEFEF;
-      color: #555555;
-      font-weight: 400;
-      border: none;
-      width: 31px;
-      height: 34px;
-      border-radius: 7px;
-      ${(props) => props.isselect && {
-          background: "#167ABC",
-      }}
-        &:hover{
-          background-color: #167ABC;
-          color: #FFF;
-          cursor: pointer;
-        }
-      }
-      &:first-child{
-      button{
-        width: 37px;
-      }
-      }
-      &:last-child{
-      button{
-        width: 37px;
-      }
-      }
     }
   }
 `
+export const ButtonPaginationNextPrev = styled.button`
+  background: #EFEFEF;
+  color: #555555;
+  font-weight: 400;
+  border: none;
+  width: 37px;
+  height: 34px;
+  border-radius: 7px;
+  &:hover{
+    background-color: #167ABC;
+    color: #FFF;
+    cursor: pointer;
+  }
+`
+
+export const ButtonPagination = styled.button`
+  background: #EFEFEF;
+  color: #555555;
+  font-weight: 400;
+  border: none;
+  width: 31px;
+  height: 34px;
+  border-radius: 7px;
+  ${(props) => props.isActive && {
+    background: "#167ABC",
+    color: "#FFFFFF"
+  }}
+  &:hover{
+    background-color: #167ABC;
+    color: #FFF;
+    cursor: pointer;
+  }
+`
+

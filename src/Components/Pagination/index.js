@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Container } from './styles';
+import { Container, ButtonPagination, ButtonPaginationNextPrev } from './styles';
 
 
 
-export default function Pagination({totalHeros, limit, currentPage, setCurrentPage}) {
+export default function Pagination({totalHeros, limit, currentPage, setCurrentPage, currentPageOffSet, setCurrentPageOffSet}) {
   const [pages, setPages] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
-
-
-
   useEffect(() => {
+    console.log(currentPageOffSet)
     setTotalPages(Math.ceil(totalHeros / limit))
 
     const { maxLeft, maxRight } = calculateMaxVisible()
     let arrayPages = []
     for(let page = maxLeft; page <=maxRight; page++){
-      arrayPages.push({ numberPage: page });
+      arrayPages.push({ numberPage: page});
 
     }
-    console.log(arrayPages)
     setPages(arrayPages);
   }, [currentPage])
-
-
 
   function calculateMaxVisible() {
     let maxLeft = (currentPage - Math.floor(5/2))
@@ -57,39 +52,43 @@ export default function Pagination({totalHeros, limit, currentPage, setCurrentPa
       setCurrentPage(currentPage++)
     }
   }
-   function handleGoTo(page) {
-    setCurrentPage(page)
+
+   function handleGoTo(numberPage, offset) {
+    setCurrentPage(numberPage)
+    setCurrentPageOffSet(offset*10)
+
     if(currentPage > totalPages){
       currentPage = totalPages
     }
   }
-
 
   return (
     <Container>
       <ul>
       { currentPage > 1 && (
         <>
-          <li><button onClick={() => setCurrentPage(0)}>{`<<`}</button></li>
-          <li><button onClick={handlePrevPage}>{`<`}</button></li>
+          <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(0)}>{`<<`}</ButtonPaginationNextPrev></li>
+          <li><ButtonPaginationNextPrev onClick={handlePrevPage}>{`<`}</ButtonPaginationNextPrev></li>
         </>
       )}
         {
 
-          pages.map((page) => {
+          pages.map((page, index) => {
+
             return (
               <li key={Math.random()}>
-                <button
-                  onClick={() => handleGoTo(page.numberPage)}
-                >{ page.numberPage }</button>
+                <ButtonPagination
+                  isActive={currentPage === page.numberPage}
+                  onClick={() => handleGoTo(page.numberPage, index)}
+                >{ page.numberPage }</ButtonPagination>
               </li>
             )
           })
         }
 
           <>
-            <li><button onClick={handleNextPage}>{`>`}</button></li>
-            <li><button onClick={() => setCurrentPage(totalHeros - totalHeros % limit)}>{`>>`}</button></li>
+            <li><ButtonPaginationNextPrev onClick={handleNextPage}>{`>`}</ButtonPaginationNextPrev></li>
+            <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(totalHeros - totalHeros % limit)}>{`>>`}</ButtonPaginationNextPrev></li>
           </>
 
 
@@ -103,5 +102,6 @@ Pagination.propTypes = {
   pages: PropTypes.array,
   currentPage: PropTypes.number,
   setCurrentPage: PropTypes.func,
-  isSelect: PropTypes.bool,
+  currentPageOffSet: PropTypes.number,
+  setCurrentPageOffSet: PropTypes.func,
 };
