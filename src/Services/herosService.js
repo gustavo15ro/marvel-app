@@ -8,18 +8,6 @@ const HerosService = {
     });
     return res.data;
   },
-  async getPage(page) {
-    const res = await api.get(`characters?${apiKey()}`, {
-      params: { orderBy: 'name', limit: '10', offset: page },
-    });
-    return res.data;
-  },
-  // async searchHero(nameHero) {
-  //   const res = await api.get(`characters?${apiKey()}`, {
-  //     params: { name: nameHero },
-  //   })
-  //   return res.data
-  // },
   async getHero(characterId) {
     const res = await api.get(`characters/${characterId}?${apiKey()}`);
     return res.data;

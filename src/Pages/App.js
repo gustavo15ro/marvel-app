@@ -11,10 +11,12 @@ export default function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Header />
+      <main>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="heroDetails/:id" element={<HeroDetails />} />
       </Routes>
+      </main>
       <Footer />
     </BrowserRouter>
   );

@@ -5,13 +5,16 @@ export const Container = styled.section`
   grid-template-columns: 1fr;
   column-gap: 10px;
   row-gap: 10px;
-  padding: 10px;
-  @media screen and (min-width:768px) and (max-width:1023px){
+`
+
+export const ListHeader = styled.section`
+ width: 100%;
+    border-radius: 8px;
+    padding: 15px;
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media screen and (min-width:1024px){
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
+    grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+
 `

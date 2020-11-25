@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
 
 export default function CardHero({
-  id, name, description, thumbnail, islink,
+   name, description, thumbnail
 }) {
-  const link = islink ? `/heroDetails/${id}` : '#';
+
   return (
     <Container>
-      <Link to={link}>
         <figure>
           <img
             src={`${thumbnail.path}.${thumbnail.extension}`}
@@ -27,7 +25,6 @@ export default function CardHero({
             </p>
           </footer>
         </div>
-      </Link>
     </Container>
   );
 }

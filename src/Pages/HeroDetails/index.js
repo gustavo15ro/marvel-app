@@ -18,31 +18,21 @@ export default function HeroDetails() {
       const responseFilter = response.data.results.reduce((acc, cur) => cur, {});
       setHero(responseFilter);
     });
-  }, []);
 
-  useEffect(() => {
     HerosService.getComicsHero(params.id).then((response) => {
       setComicsHero(response.data.results);
     });
-  }, []);
 
-  useEffect(() => {
     HerosService.getEventsHero(params.id).then((response) => {
       setEventsHero(response.data.results);
     });
-  }, []);
 
-  useEffect(() => {
     HerosService.getSeriesHero(params.id).then((response) => {
       setSeriesHero(response.data.results);
     });
   }, []);
 
-  // useEffect(() => {
-  //   HerosService.getStoriesHero(params.id).then(response => {
-  //     setStoriesHero(response.data.results)
-  //   })
-  // }, [])
+
 
   return (
     <>
@@ -62,7 +52,6 @@ export default function HeroDetails() {
         {
               comicsHero.map((comic) => (
                 <CardHero
-                  islink={false}
                   key={comic.id}
                   id={comic.id}
                   name={comic.title}

@@ -3,9 +3,7 @@ import styled from "styled-components"
 
 export const Container = styled.article`
   position: relative;
-  a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
     div {
       overflow: hidden;
       position: relative;
@@ -49,7 +47,7 @@ export const Container = styled.article`
         top: auto;
         z-index: 40;
       }
-    }
+
     &:hover {
       figure {
         img {
