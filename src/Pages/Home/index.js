@@ -60,15 +60,10 @@ export default function Home() {
         }
       </Container>
 
-      <Pagination setCurrentPageOffSet={setCurrentPageOffSet}/>
-        {/* <Pagination
-          totalHeros={totalHeros}
-          limit={limit}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          currentPageOffSet={currentPageOffSet}
-          setCurrentPageOffSet={setCurrentPageOffSet}
-        /> */}
+      <Pagination
+        setCurrentPageOffSet={setCurrentPageOffSet}
+        currentPageOffSet={currentPageOffSet}
+      />
 
     </>
   );

@@ -7,7 +7,7 @@ import { Container, ButtonPagination, ButtonPaginationNextPrev } from './styles'
 
 
 
-export default function Pagination({ setCurrentPageOffSet }) {
+export default function Pagination({ setCurrentPageOffSet, currentPageOffSet }) {
 
   const [total, setTotal] = useState(0);
   const [limit] = useState(10);
@@ -54,7 +54,7 @@ export default function Pagination({ setCurrentPageOffSet }) {
 
   function handleNextPage() {
     setCurrentPage(currentPage +1)
-    setCurrentPageOffSet(currentPage +10)
+    setCurrentPageOffSet(currentPage *10)
 
     if(currentPage > totalPages){
       setCurrentPage(currentPage -1)
@@ -64,11 +64,11 @@ export default function Pagination({ setCurrentPageOffSet }) {
 
   function handlePrevPage() {
     setCurrentPage(currentPage -1)
-    setCurrentPageOffSet(currentPage -10)
+    setCurrentPageOffSet(currentPageOffSet -10)
 
     if(currentPage < 1){
       setCurrentPage(currentPage +1)
-      setCurrentPageOffSet(currentPage +10)
+      setCurrentPageOffSet(currentPageOffSet +10)
     }
   }
 
@@ -127,5 +127,6 @@ export default function Pagination({ setCurrentPageOffSet }) {
   );
 }
 Pagination.propTypes = {
+  currentPageOffSet: PropTypes.any,
   setCurrentPageOffSet: PropTypes.func,
 };
