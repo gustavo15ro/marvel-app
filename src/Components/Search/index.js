@@ -19,7 +19,6 @@ export default function Search({setHeroes}) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    console.log(nameHero)
     if(nameHero.length > 3){
       HerosService.getSearchHero(nameHero).then((response) => {
         setHeroes(response.data.results)
