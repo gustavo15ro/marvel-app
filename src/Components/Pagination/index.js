@@ -1,26 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import HerosService from '../../Services/herosService';
+
 
 import { Container, ButtonPagination, ButtonPaginationNextPrev } from './styles';
 
 
 
-export default function Pagination({totalHeros, limit, currentPage, setCurrentPage, setCurrentPageOffSet}) {
+export default function Pagination({ setCurrentPageOffSet }) {
+
+  const [total, setTotal] = useState(0);
+  const [limit] = useState(10);
   const [pages, setPages] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {}, [pages])
+
   useEffect(() => {
-    setTotalPages(Math.ceil(totalHeros / limit))
+    async function loadProducts() {
+      const response = await HerosService.getHeroes()
+      setTotal(response.data.total);
+      setTotalPages(Math.ceil(total / limit))
 
-    const { maxLeft, maxRight } = calculateMaxVisible()
-    let arrayPages = []
-    for(let page = maxLeft; page <=maxRight; page++){
-      arrayPages.push({ numberPage: page});
+      const { maxLeft, maxRight } = calculateMaxVisible()
+      const arrayPages = [];
+      for(let page = maxLeft; page <=maxRight; page++){
+        arrayPages.push({ numberPage: page});
+      }
+
+      setPages(arrayPages);
 
     }
-    setPages(arrayPages);
-  }, [currentPage])
+
+    loadProducts();
+  }, [currentPage, limit, total, totalPages]);
 
   function calculateMaxVisible() {
     let maxLeft = (currentPage - Math.floor(5/2))
@@ -39,27 +52,45 @@ export default function Pagination({totalHeros, limit, currentPage, setCurrentPa
     return { maxLeft, maxRight }
   }
 
-   function handleNextPage() {
-    setCurrentPage(currentPage++)
-    if(currentPage > totalHeros){
-      setCurrentPage(currentPage--)
-    }
-  }
-
-   function handlePrevPage() {
-    setCurrentPage(currentPage--)
-    if(currentPage < limit){
-      setCurrentPage(currentPage++)
-    }
-  }
-
-   function handleGoTo(numberPage, offset) {
-    setCurrentPage(numberPage)
-    setCurrentPageOffSet(offset*10)
+  function handleNextPage() {
+    setCurrentPage(currentPage +1)
+    setCurrentPageOffSet(currentPage +10)
 
     if(currentPage > totalPages){
-      currentPage = totalPages
+      setCurrentPage(currentPage -1)
+      setCurrentPageOffSet(currentPage -10)
     }
+  }
+
+  function handlePrevPage() {
+    setCurrentPage(currentPage -1)
+    setCurrentPageOffSet(currentPage -10)
+
+    if(currentPage < 1){
+      setCurrentPage(currentPage +1)
+      setCurrentPageOffSet(currentPage +10)
+    }
+  }
+
+  function handleGoTo(page) {
+    if(page === 1){
+      console.log('Entrou no if')
+      setCurrentPage(1)
+      setCurrentPageOffSet(0)
+    }else if(page > totalPages){
+      console.log('entrou if else')
+      setCurrentPage(totalPages)
+    }else{
+      console.log('entrou  else')
+      setCurrentPage(page)
+      setCurrentPageOffSet(page*10)
+    }
+    // if(page < 1){
+    //   setCurrentPage(1)
+    // }
+
+    console.log('page', page, 'offset', page)
+
   }
 
   return (
@@ -67,19 +98,18 @@ export default function Pagination({totalHeros, limit, currentPage, setCurrentPa
       <ul>
       { currentPage > 1 && (
         <>
-          <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(0)}>{`<<`}</ButtonPaginationNextPrev></li>
+          <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(1)}>{`<<`}</ButtonPaginationNextPrev></li>
           <li><ButtonPaginationNextPrev onClick={handlePrevPage}>{`<`}</ButtonPaginationNextPrev></li>
         </>
       )}
         {
 
-          pages.map((page, index) => {
-
+          pages.map((page) => {
             return (
               <li key={Math.random()}>
                 <ButtonPagination
                   isActive={currentPage === page.numberPage}
-                  onClick={() => handleGoTo(page.numberPage, index)}
+                  onClick={() => handleGoTo(page.numberPage)}
                 >{ page.numberPage }</ButtonPagination>
               </li>
             )
@@ -88,7 +118,7 @@ export default function Pagination({totalHeros, limit, currentPage, setCurrentPa
         { currentPage != totalPages && (
           <>
             <li><ButtonPaginationNextPrev onClick={handleNextPage}>{`>`}</ButtonPaginationNextPrev></li>
-            <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(totalHeros - totalHeros % limit)}>{`>>`}</ButtonPaginationNextPrev></li>
+            <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(totalPages)}>{`>>`}</ButtonPaginationNextPrev></li>
           </>
         )}
 
@@ -97,10 +127,5 @@ export default function Pagination({totalHeros, limit, currentPage, setCurrentPa
   );
 }
 Pagination.propTypes = {
-  totalHeros: PropTypes.number,
-  limit: PropTypes.number,
-  pages: PropTypes.array,
-  currentPage: PropTypes.number,
-  setCurrentPage: PropTypes.func,
   setCurrentPageOffSet: PropTypes.func,
 };
