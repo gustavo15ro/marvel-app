@@ -5,12 +5,12 @@ import { Container, ButtonPagination, ButtonPaginationNextPrev } from './styles'
 
 
 
-export default function Pagination({totalHeros, limit, currentPage, setCurrentPage, currentPageOffSet, setCurrentPageOffSet}) {
+export default function Pagination({totalHeros, limit, currentPage, setCurrentPage, setCurrentPageOffSet}) {
   const [pages, setPages] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
+  useEffect(() => {}, [pages])
   useEffect(() => {
-    console.log(currentPageOffSet)
     setTotalPages(Math.ceil(totalHeros / limit))
 
     const { maxLeft, maxRight } = calculateMaxVisible()
@@ -85,12 +85,12 @@ export default function Pagination({totalHeros, limit, currentPage, setCurrentPa
             )
           })
         }
-
+        { currentPage != totalPages && (
           <>
             <li><ButtonPaginationNextPrev onClick={handleNextPage}>{`>`}</ButtonPaginationNextPrev></li>
             <li><ButtonPaginationNextPrev onClick={() => setCurrentPage(totalHeros - totalHeros % limit)}>{`>>`}</ButtonPaginationNextPrev></li>
           </>
-
+        )}
 
       </ul>
     </Container>
@@ -102,6 +102,5 @@ Pagination.propTypes = {
   pages: PropTypes.array,
   currentPage: PropTypes.number,
   setCurrentPage: PropTypes.func,
-  currentPageOffSet: PropTypes.number,
   setCurrentPageOffSet: PropTypes.func,
 };

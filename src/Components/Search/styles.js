@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Container = styled.div`
+export const Form = styled.form`
   margin: 40px 0;
   h3{
     font-size: 24px;

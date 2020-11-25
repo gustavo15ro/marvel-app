@@ -12,6 +12,9 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
   const [currentPageOffSet, setCurrentPageOffSet] = useState(0);
 
+  useEffect(() => {
+  }, [heroes])
+
 
   useEffect(() => {
     HerosService.getHeroes(currentPageOffSet).then((response) => {
@@ -19,11 +22,14 @@ export default function Home() {
       setTotalHeros(response.data.total);
       setHeroes(response.data.results);
     });
+
   }, [currentPage, currentPageOffSet, limit, totalHeros])
 
   return (
     <>
-      <Search/>
+      <Search
+        setHeroes={setHeroes}
+      />
       <Container>
         <ListHeader>
           <strong>Avatar</strong>
@@ -60,7 +66,6 @@ export default function Home() {
           setCurrentPage={setCurrentPage}
           currentPageOffSet={currentPageOffSet}
           setCurrentPageOffSet={setCurrentPageOffSet}
-
         />
 
     </>

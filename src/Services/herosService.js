@@ -12,6 +12,12 @@ const HerosService = {
     const res = await api.get(`characters/${characterId}?${apiKey()}`);
     return res.data;
   },
+  async getSearchHero(nameHero) {
+    const res = await api.get(`characters?${apiKey()}`, {
+      params: { name: nameHero },
+    })
+    return res.data
+  },
   async getComicsHero(characterId) {
     const res = await api.get(`characters/${characterId}/comics?${apiKey()}`);
     return res.data;
