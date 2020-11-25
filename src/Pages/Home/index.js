@@ -10,15 +10,16 @@ export default function Home() {
   const [totalHeros, setTotalHeros] = useState(0)
   const [limit, setLimit] = useState(10)
   const [currentPage, setCurrentPage] = useState(0);
+  const [currentPageOffSet, setCurrentPageOffSet] = useState(0);
 
 
   useEffect(() => {
-    HerosService.getHeroes(currentPage).then((response) => {
+    HerosService.getHeroes(currentPageOffSet).then((response) => {
       setLimit(response.data.limit);
       setTotalHeros(response.data.total);
       setHeroes(response.data.results);
     });
-  }, [currentPage, limit, totalHeros])
+  }, [currentPage, currentPageOffSet, limit, totalHeros])
 
   return (
     <>
@@ -57,6 +58,8 @@ export default function Home() {
           limit={limit}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          currentPageOffSet={currentPageOffSet}
+          setCurrentPageOffSet={setCurrentPageOffSet}
 
         />
 
