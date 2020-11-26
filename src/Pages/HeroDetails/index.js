@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import HerosService from '../../Services/herosService';
 import CardHero from '../../Components/CardHero';
 
-import { List, BgFull } from './styles';
+import { Container, Title, List,TitleList, BgFull } from './styles';
 
 export default function HeroDetails() {
   const [hero, setHero] = useState({});
@@ -32,70 +32,89 @@ export default function HeroDetails() {
     });
   }, []);
 
-
-
   return (
     <>
       <BgFull>
-        { hero.thumbnail ? (
-          <img
-            src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
-            alt={hero.name}
-          />
-        ) : null }
-        <h1>{hero.name}</h1>
-        <p>{hero.description}</p>
+        <Container>
+          <div>
+          { hero.thumbnail ? (
+            <img
+              src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
+              alt={hero.name}
+            />
+          ) : null }
+          <Title>
+            <h1>{hero.name}</h1>
+            <p>{hero.description}</p>
+          </Title>
+          </div>
+        </Container>
       </BgFull>
-
-      <h2>Comics</h2>
-      <List>
+      <Container>
         {
-              comicsHero.map((comic) => (
-                <CardHero
-                  key={comic.id}
-                  id={comic.id}
-                  name={comic.title}
-                  description={comic.description}
-                  thumbnail={comic.thumbnail}
-                />
-              ))
-            }
-      </List>
-
-      <h2>Events</h2>
-      <List>
-        {
-              eventsHero.map((event) => (
-                <CardHero
-                  islink={false}
-                  key={event.id}
-                  id={event.id}
-                  name={event.title}
-                  description={event.description}
-                  thumbnail={event.thumbnail}
-                />
-              ))
-            }
-      </List>
-
-      <h2>Series</h2>
-      <List>
+          comicsHero.length >= 1 &&(
+            <>
+              <TitleList>Comics</TitleList>
+              <List>
+                {
+                  comicsHero.map((comic) => (
+                    <CardHero
+                      key={comic.id}
+                      id={comic.id}
+                      name={comic.title}
+                      description={comic.description}
+                      thumbnail={comic.thumbnail}
+                    />
+                  ))
+                }
+              </List>
+            </>
+          )
+        }
 
         {
-              seriesHero.map((serie) => (
-                <CardHero
-                  islink={false}
-                  key={serie.id}
-                  id={serie.id}
-                  name={serie.title}
-                  description={serie.description}
-                  thumbnail={serie.thumbnail}
-                />
-              ))
-            }
-      </List>
-
+          eventsHero.length >= 1 &&(
+            <>
+              <TitleList>Events</TitleList>
+              <List>
+                {
+                  eventsHero.map((event) => (
+                    <CardHero
+                      islink={false}
+                      key={event.id}
+                      id={event.id}
+                      name={event.title}
+                      description={event.description}
+                      thumbnail={event.thumbnail}
+                    />
+                  ))
+                }
+              </List>
+            </>
+          )
+        }
+        {
+          seriesHero.length >= 1 &&(
+            <>
+              <TitleList>Series</TitleList>
+              <List>
+                {
+                  seriesHero.map((serie) => (
+                    <CardHero
+                      islink={false}
+                      key={serie.id}
+                      id={serie.id}
+                      name={serie.title}
+                      description={serie.description}
+                      thumbnail={serie.thumbnail}
+                    />
+                  ))
+                }
+              </List>
+            </>
+          )
+        }
+      </Container>
     </>
-
   );
 }

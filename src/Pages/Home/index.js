@@ -3,7 +3,7 @@ import HerosService from '../../Services/herosService';
 import Search from '../../Components/Search';
 import CardHeroList from '../../Components/CardHeroList';
 import Pagination from '../../Components/Pagination';
-import { Container, ListHeader } from './styles';
+import { Container, ContainerList, ListHeader } from './styles';
 
 export default function Home() {
   const [heroes, setHeroes] = useState([]);
@@ -27,11 +27,11 @@ export default function Home() {
   }, [currentPageOffSet])
 
   return (
-    <>
+    <Container>
       <Search
         setHeroes={setHeroes}
       />
-      <Container>
+      <ContainerList>
         <ListHeader>
           <strong>Avatar</strong>
           <strong>Personagem</strong>
@@ -58,13 +58,13 @@ export default function Home() {
             ))
             : <p> Procurando Herois</p>
         }
-      </Container>
+      </ContainerList>
 
       <Pagination
         setCurrentPageOffSet={setCurrentPageOffSet}
         currentPageOffSet={currentPageOffSet}
       />
 
-    </>
+    </Container>
   );
 }

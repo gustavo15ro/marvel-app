@@ -36,7 +36,7 @@ export const Container = styled.article`
       &:after {
         border-bottom-color: transparent;
         border-left-color: transparent;
-        border-right-color: #fff;
+        border-right-color: #E5E5E5;
         border-style: solid;
         border-top-color: transparent;
         border-width: 12px 12px 0 0;
