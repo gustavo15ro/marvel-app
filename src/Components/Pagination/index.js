@@ -74,23 +74,17 @@ export default function Pagination({ setCurrentPageOffSet, currentPageOffSet }) 
 
   function handleGoTo(page) {
     if(page === 1){
-      console.log('Entrou no if')
       setCurrentPage(1)
       setCurrentPageOffSet(0)
     }else if(page > totalPages){
-      console.log('entrou if else')
       setCurrentPage(totalPages)
     }else{
-      console.log('entrou  else')
       setCurrentPage(page)
       setCurrentPageOffSet(page*10)
     }
     // if(page < 1){
     //   setCurrentPage(1)
     // }
-
-    console.log('page', page, 'offset', page)
-
   }
 
   return (

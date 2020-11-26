@@ -7,9 +7,6 @@ import { Container, ContainerList, ListHeader } from './styles';
 
 export default function Home() {
   const [heroes, setHeroes] = useState([]);
-  // const [totalHeros, setTotalHeros] = useState(0)
-  // const [limit, setLimit] = useState(10)
-  // const [currentPage, setCurrentPage] = useState(0);
   const [currentPageOffSet, setCurrentPageOffSet] = useState(0);
 
   useEffect(() => {
@@ -17,13 +14,9 @@ export default function Home() {
 
 
   useEffect(() => {
-    console.log('currentPageOffSet: ', currentPageOffSet)
     HerosService.getHeroes(currentPageOffSet).then((response) => {
-      // setLimit(response.data.limit);
-      // setTotalHeros(response.data.total);
       setHeroes(response.data.results);
     });
-
   }, [currentPageOffSet])
 
   return (
