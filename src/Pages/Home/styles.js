@@ -1,6 +1,11 @@
 import styled from "styled-components"
 
+
 export const Container = styled.section`
+  width: 1200px;
+  margin: 0 auto;
+`
+export const ContainerList = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   column-gap: 10px;
